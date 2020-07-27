@@ -1,0 +1,70 @@
+.headerclass {
+    height: 50px;
+    .Navbar {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        top: 17px;
+    }
+    .menu-bar {
+        font-weight: 700;
+        top: 0;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        position: relative;
+
+        li {
+            margin: 0;
+            display: inline-block;
+            background-color: transparent;
+            padding: 0 10px;
+            position: relative;
+            color: #3e3e3e;
+            padding: 0 5px;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 100;
+            .menu-bar-child {
+                font-weight: 700;
+                float: left;
+                position: absolute;
+                top: calc(100% + 4px);
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                display: none;
+                z-index: 1111;
+                box-shadow: 0 0 2px 0 #585858;
+                border-radius: 3px;
+                border-top: 3px solid #00a2ff;
+                padding: 1px 0 0;
+                z-index: 999999;
+                background: #ffffff;
+                li {
+                    min-width: 220px;
+                    max-width: 270px;
+                    float: none;
+                    display: list-item;
+                    position: relative;
+                    padding: 10px;
+                    border-bottom: 1px solid #d2cdcd;
+                    text-align: left;
+                }
+                &:before {
+                    content: '';
+                    border-bottom: 10px solid #00a2ff;
+                    border-right: 10px solid transparent;
+                    border-left: 10px solid transparent;
+                    position: absolute;
+                    top: -10px;
+                    left: 28px;
+                    z-index: 10;
+                }
+            }
+        }
+        li:hover > .menu-bar-child {
+            display: block;
+        }
+    }
+}

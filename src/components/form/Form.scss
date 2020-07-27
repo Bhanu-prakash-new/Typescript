@@ -1,0 +1,69 @@
+.Basic {
+    background: #ffffff;
+    background-image: url(/banner.jpg);
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 640px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    left: 0;
+    .form {
+        width: 25%;
+        background: #ffffff;
+        box-shadow: 2px 2px 6px #000000b8;
+        margin-left: 10%;
+    }
+    .makeStyles-root-1 > * {
+        width: auto;
+    }
+    .react-datepicker-wrapper {
+        display: block;
+    }
+    .react-datepicker__input-container {
+        display: flex;
+        input {
+            flex: 1;
+            padding: 9.5px 14px;
+            font: inherit;
+            color: currentColor;
+            font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            font-weight: 400;
+            line-height: 1.1876em;
+            letter-spacing: 0.00938em;
+            border-radius: 4px;
+            border: 1px solid #dddddd;
+        }
+    }
+    button.MuiButton-containedPrimary {
+        width: calc(100% - 15px) !important;
+        border-radius: 0px;
+        height: 40px;
+        text-transform: none;
+    }
+    .yourticket {
+        display: block;
+        font-size: 2rem;
+        font-weight: 100;
+        position: relative;
+        top: -15px;
+        text-align: center;
+    }
+
+    .MuiOutlinedInput-input {
+        padding: 9.5px 14px;
+    }
+    .bookClass {
+        font-family: Heading, Helvetica, Arial, sans-serif !important;
+        display: block;
+        text-align: center;
+        font-size: 4.6rem;
+        margin-bottom: -10px;
+        text-transform: uppercase;
+        font-weight: 400;
+    }
+    .MuiFormControl-root {
+        display: flex;
+    }
+}
