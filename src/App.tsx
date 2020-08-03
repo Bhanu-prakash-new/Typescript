@@ -11,6 +11,7 @@ import promise from 'redux-promise';
 import createSagaMiddleware from 'redux-saga';
 import reducers from './storefiles/reduxCombiners';
 import sagas from './storefiles/saga';
+import LoginPage from './components/login';
 
 type ContextProps = {
     time: string;
@@ -60,8 +61,9 @@ class App extends React.Component<propsInt, stateInt> {
                             <Header></Header>
                             {/* <InputAdornments /> */}
                         </AppContextProvider>
-                        <Route path='/test' exact component={InputAdornments} />
+                        <Route path='/home' exact component={InputAdornments} />
                         <Route path='/todos' exact component={Todos} />
+                        <Route path='/login' exact component={LoginPage} />
                         <Route exact path='/'>
                             <Redirect to='/todos' />
                         </Route>

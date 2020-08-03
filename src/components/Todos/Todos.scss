@@ -1,0 +1,25 @@
+.todosParent {
+    margin: 10px;
+    .MuiInput-underline {
+        input {
+            border: 1px solid #dddddd;
+        }
+    }
+    .FormClass {
+        input {
+            margin-right: 5px;
+        }
+    }
+    .captial th {
+        text-transform: uppercase;
+        text-align: center;
+    }
+    table {
+        width: auto;
+        margin: auto;
+        border: 1px solid;
+        margin-bottom: 1rem;
+        color: #ffffff;
+        background-color: saddlebrown;
+    }
+}

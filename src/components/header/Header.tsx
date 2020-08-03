@@ -26,10 +26,10 @@ class Header extends Component<HeaderProps, stateInterface> {
     public state = {
         visible: false,
         menuItems: [
-            { name: 'WEBSITE', route: '/test' },
+            { name: 'HOME', route: '/home' },
             { name: 'TODOS', route: '/todos' },
             { name: 'FORMS', route: '/test' },
-            { name: 'LOGIN', route: '/test' },
+            { name: 'LOGIN', route: '/login' },
             { name: 'LOGOUT', route: '/test' }
         ]
     };

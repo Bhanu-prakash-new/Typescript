@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-
+import { createSelector } from 'reselect';
+import { InputText } from 'primereact/inputtext';
+import './Todos.scss';
+import { Button } from 'primereact/button';
+import { Dropdown } from 'primereact/dropdown';
+import { isThisISOWeek } from 'date-fns/esm';
+import AlertDialog from './editPopup';
 export const deletePost = (id: string) => {
     return {
-        type: 'DELETE_TODO',
+        type: 'DELETE_TODOS',
         id
     };
 };
@@ -18,62 +24,136 @@ type addDataInput = { task: string };
 export const fetchTodos = () => {
     return { type: 'FETCH_TODOS' };
 };
+export const updateTodos = (payload: any) => {
+    return { type: 'UPDATE_TODOS', payload };
+};
 
-type TodosProps = {
+interface TodosProps {
     onTextChange: (text: string) => void;
-    listdata: Array<any>;
+    todoList: Array<any>;
     addTodoAction: (payload: addDataInput) => void;
     dispatch: any;
     listItemClickAction: () => void;
     deleteItemAction: (id: string) => void;
-};
-
-class Todos extends Component<TodosProps, any> {
+    updateListAction: (payload: any) => void;
+}
+interface stateProps {
+    task: string;
+    city: string;
+    showEditPopup: boolean;
+    rowData: any;
+}
+const cities = [
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' }
+];
+class Todos extends Component<TodosProps, stateProps> {
     constructor(props: TodosProps) {
         super(props);
-
         this.state = {
-            task: ''
+            task: '',
+            city: 'NY',
+            showEditPopup: false,
+            rowData: {}
         };
+        this.saveChanges = this.saveChanges.bind(this);
     }
 
     handleInputChange(text: string): void {
         this.setState({ task: text });
     }
     handleSubmit = () => {
-        this.props.addTodoAction({ task: this.state.task });
+        if (!!this.state.task && this.state.task !== '') {
+            this.props.addTodoAction({ task: this.state.task });
+            this.setState({ task: '' });
+        }
     };
+    onCityChange = (e: { value: any }) => {
+        this.setState({ city: e.value });
+    };
+
+    deleteRow = (id: string) => {
+        this.props.deleteItemAction(id);
+    };
+    componentDidMount() {
+        this.props.listItemClickAction();
+    }
+    componentWillMount() {
+        console.log('logon');
+    }
+    saveChanges(updatedData: any) {
+        this.props.updateListAction(updatedData);
+        this.setState({ showEditPopup: false });
+    }
+
+    editRow(rowData: any) {
+        this.setState({ rowData, showEditPopup: true });
+    }
+
     public render() {
-        const { listdata } = this.props;
-        console.log(listdata.length, 'find');
+        const { todoList } = this.props;
         return (
-            <div>
-                <input
-                    onChange={(event) =>
-                        this.handleInputChange(event.target.value)
-                    }
-                    type='text'
-                    placeholder='new task'
-                    value={this.state.task}
-                />
-                <button onClick={this.handleSubmit}>Submit</button>
+            <div className='todosParent'>
+                {this.state.showEditPopup && (
+                    <AlertDialog
+                        saveChanges={this.saveChanges}
+                        rowData={this.state.rowData}
+                    />
+                )}
+                <div className='FormClass'>
+                    <InputText
+                        value={this.state.task}
+                        placeholder='new task'
+                    onChange={({target}) =>
+                            this.handleInputChange(
+                                (target as HTMLInputElement).value
+                            )
+                        }
+                    />
+                    <Dropdown
+                        optionLabel='name'
+                        value={this.state.city}
+                        options={cities}
+                        onChange={this.onCityChange}
+                        placeholder='Select a City'
+                    />
+
+                    <Button label='Submit' onClick={this.handleSubmit} />
+                </div>
                 <table className='table'>
                     <thead>
-                        <tr>
+                        <tr className="captial">
                             <th scope='col'>#</th>
                             <th scope='col'>First</th>
                             <th scope='col'>Last</th>
                             <th scope='col'>Handle</th>
+                            <th scope='col'>action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {listdata.map((data, key) => {
+                        {todoList.map((data, key) => {
                             return (
                                 <tr key={key}>
-                                    <td>{key}</td>
-                                    <td> {data.categories}</td>
+                                    <td>{key + 1}</td>
+                                    <td>{data.categories}</td>
                                     <td>{data.content}</td>
                                     <td>{data.title}</td>
+                                    <td>
+                                        <Button
+                                            label='EDIT'
+                                            onClick={() => this.editRow(data)}
+                                        />
+                                        {' '}
+                                        <Button
+                                            label='DELETE'
+                                            onClick={() =>
+                                                this.deleteRow(data.id)
+                                            }
+                                        />
+                                    </td>
                                 </tr>
                             );
                         })}
@@ -83,9 +163,10 @@ class Todos extends Component<TodosProps, any> {
         );
     }
 }
-const mapStateToProps = (state: any) => {
+
+const mapStateToProps = (state: TodosProps) => {
     return {
-        listdata: state.todoList
+        todoList: getBarState(state)
     };
 };
 
@@ -94,8 +175,13 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
         {
             deleteItemAction: deletePost,
             listItemClickAction: fetchTodos,
-            addTodoAction: addTodo
+            addTodoAction: addTodo,
+            updateListAction: updateTodos
         },
         dispatch
     );
 export default connect(mapStateToProps, mapDispatchToProps)(Todos);
+
+const getBar = (state: TodosProps) => state.todoList;
+
+const getBarState = createSelector([getBar], (todoList) => todoList);

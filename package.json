@@ -21,6 +21,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/redux-promise": "^0.5.29",
     "@types/redux-saga": "^0.10.5",
+    "@types/reselect": "^2.2.0",
     "axios": "^0.19.2",
     "date-fns": "^2.15.0",
     "dateformat": "^3.0.3",
@@ -39,6 +40,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "redux-promise": "^0.6.0",
+    "reselect": "^4.0.0",
     "typescript": "^3.7.5"
   },
   "scripts": {

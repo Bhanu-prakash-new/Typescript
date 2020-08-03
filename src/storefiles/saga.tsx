@@ -36,7 +36,7 @@ function* watchAddToDo() {
 }
 export function* deleteTodo(id: any) {
     try {
-        yield call(axios.delete, `${ROOT_URL}/posts/${id}${API_KEY}`);
+        yield call(axios.delete, `${ROOT_URL}/posts/${id.id}${API_KEY}`);
         yield put({ type: 'FETCH_TODOS' });
     } catch (error) {
         console.log('deleteTodo Error:', error.message);
