@@ -22,7 +22,7 @@
     "@types/redux-promise": "^0.5.29",
     "@types/redux-saga": "^0.10.5",
     "@types/reselect": "^2.2.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "date-fns": "^2.15.0",
     "dateformat": "^3.0.3",
     "enzyme": "^3.11.0",
